@@ -1,6 +1,7 @@
 package com.example.texturedemo.gles;
 
 import android.content.Context;
+import android.opengl.GLES20;
 import android.opengl.GLES30;
 import android.opengl.GLSurfaceView;
 
@@ -51,11 +52,12 @@ public class MyRender implements GLSurfaceView.Renderer {
     @Override
     public void onSurfaceChanged(GL10 gl10, int i, int i1) {
         GLES30.glViewport(0, (i1 - i) / 2, i, i);
+        GLES30.glEnable(GLES20.GL_DEPTH_TEST);
     }
 
     @Override
     public void onDrawFrame(GL10 gl10) {
-        GLES30.glClear(GLES30.GL_COLOR_BUFFER_BIT);
+        GLES30.glClear(GLES30.GL_COLOR_BUFFER_BIT|GLES30.GL_DEPTH_BUFFER_BIT);
         cube.draw();
     }
 
