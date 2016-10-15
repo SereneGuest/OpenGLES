@@ -6,6 +6,7 @@ import android.opengl.GLES30;
 import android.opengl.GLSurfaceView;
 
 
+import com.example.texturedemo.data.CameraView;
 import com.example.texturedemo.data.Cube;
 import com.example.texturedemo.data.HelloTriangel2;
 import com.example.texturedemo.data.LearnTexture;
@@ -36,6 +37,7 @@ public class MyRender implements GLSurfaceView.Renderer {
     private LearnTexture texture;
     private Transform transform;
     private Cube cube;
+    private CameraView cameraView;
 
     @Override
     public void onSurfaceCreated(GL10 gl10, EGLConfig eglConfig) {
@@ -46,7 +48,8 @@ public class MyRender implements GLSurfaceView.Renderer {
         //triangel2 = new HelloTriangel2(mContext);
         //texture = new LearnTexture(mContext);
         //transform = new Transform(mContext);
-        cube = new Cube(mContext);
+        //cube = new Cube(mContext);
+        cameraView = new CameraView(mContext);
     }
 
     @Override
@@ -58,11 +61,11 @@ public class MyRender implements GLSurfaceView.Renderer {
     @Override
     public void onDrawFrame(GL10 gl10) {
         GLES30.glClear(GLES30.GL_COLOR_BUFFER_BIT|GLES30.GL_DEPTH_BUFFER_BIT);
-        cube.draw();
+        cameraView.draw();
     }
 
 
     public void release() {
-        cube.release();
+        cameraView.release();
     }
 }
