@@ -7,9 +7,12 @@ import android.opengl.GLSurfaceView;
 
 
 import com.example.texturedemo.data.CameraView;
+import com.example.texturedemo.data.Color;
 import com.example.texturedemo.data.Cube;
 import com.example.texturedemo.data.HelloTriangel2;
+import com.example.texturedemo.data.Lamp;
 import com.example.texturedemo.data.LearnTexture;
+import com.example.texturedemo.data.Lighting;
 import com.example.texturedemo.data.Picture;
 import com.example.texturedemo.data.Square;
 import com.example.texturedemo.data.Transform;
@@ -38,6 +41,9 @@ public class MyRender implements GLSurfaceView.Renderer {
     private Transform transform;
     private Cube cube;
     private CameraView cameraView;
+    private Color color;
+    private Lamp lamp;
+    private Lighting lighting;
 
     @Override
     public void onSurfaceCreated(GL10 gl10, EGLConfig eglConfig) {
@@ -49,23 +55,29 @@ public class MyRender implements GLSurfaceView.Renderer {
         //texture = new LearnTexture(mContext);
         //transform = new Transform(mContext);
         //cube = new Cube(mContext);
-        cameraView = new CameraView(mContext);
+        //cameraView = new CameraView(mContext);
+        //color = new Color(mContext);
+        lighting = new Lighting(mContext);
+        lamp = new Lamp(mContext);
     }
 
     @Override
     public void onSurfaceChanged(GL10 gl10, int i, int i1) {
         GLES30.glViewport(0, (i1 - i) / 2, i, i);
-        GLES30.glEnable(GLES20.GL_DEPTH_TEST);
+        GLES30.glEnable(GLES30.GL_DEPTH_TEST);
+        GLES30.glEnable(GLES30.GL_BLEND);
     }
 
     @Override
     public void onDrawFrame(GL10 gl10) {
         GLES30.glClear(GLES30.GL_COLOR_BUFFER_BIT|GLES30.GL_DEPTH_BUFFER_BIT);
-        cameraView.draw();
+        lighting.draw();
+        lamp.draw();
     }
 
 
     public void release() {
-        cameraView.release();
+        lamp.release();
+        lighting.release();
     }
 }
